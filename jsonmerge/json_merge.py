@@ -22,7 +22,8 @@ for subdir, dirs, files in os.walk(args.folder):
         filepath = subdir + os.sep + filename
 
         json_end_string = ").json"
-        jpeg_end_string = ".jpg"
+        
+        ext = (".jpg", ".jpeg", ".gif", ".mp4", ".mov", ".avi")
 
         if filepath.endswith(json_end_string):
             # print("JPEG file: " + filename)
@@ -45,11 +46,11 @@ for subdir, dirs, files in os.walk(args.folder):
             except:
                 print("Invalid number: " + str(number))
 
-            if base_name.endswith(jpeg_end_string):
-                # print("JPEG base name: " + base_name)
-                base_name = base_name.rstrip(jpeg_end_string)
+            if base_name.lower().endswith(tuple(ext)):
+                # print("base name: " + base_name)
+                (base_name, extension) = os.path.splitext(base_name)
 
-                new_name = base_name + '(' + str(number) + ')' + ".jpg.json"
+                new_name = base_name + '(' + str(number) + ')' + extension + ".json"
                 # print("New name: " + new_name)
 
                 filepath_new = subdir + os.sep + new_name
